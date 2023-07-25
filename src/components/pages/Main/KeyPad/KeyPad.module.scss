@@ -1,0 +1,61 @@
+.Wrap {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.Key {
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  transition: all .3s ease;
+  cursor: pointer;
+  text-transform: uppercase;
+
+  sub {
+    font-size: 16px;
+    transform: translate(0px, 4px);
+  }
+
+  sup {
+    font-size: 16px;
+    transform: translate(0px, -4px);
+  }
+
+  span {
+    font-size: 20px;
+  }
+
+  &[data-style='dark'] {
+    background-color: #ADD7FF;
+
+    &:hover {
+      background-color: #F2FAFF;
+    }
+
+    &:active {
+      background-color: #abc9f1;
+    }
+  }
+
+  &[data-style='light'] {
+    background-color: #F2FAFF;
+
+    &:hover {
+      background-color: #ADD7FF;
+    }
+
+    &:active {
+      background-color: #abc9f1;
+    }
+  }
+
+
+}

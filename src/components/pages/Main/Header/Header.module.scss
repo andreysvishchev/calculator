@@ -1,0 +1,36 @@
+.Wrap {
+  height: 160px;
+  background-color: #fff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  margin-bottom: 15px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 20px 40px 20px;
+}
+
+.Expression {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.Result {
+  margin-top: auto;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-align: right;
+
+  &.Small {
+    font-size: 26px;
+  }
+
+  &.Medium {
+    font-size: 30px;
+  }
+}
