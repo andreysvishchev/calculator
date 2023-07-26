@@ -36,13 +36,13 @@ const Main = () => {
 
     const handleKeyPress = (keyCode: number | null, key: string) => {
 
-        if (key === 'ce' || key === 'Escape') {
-            clearAllHandler()
+        if (key === 'ce') {
+            clearHandler()
             setEquals(false)
         }
 
-        if (key === 'c') {
-            clearHandler()
+        if (key === 'c' || key === 'Escape') {
+            clearAllHandler()
             setEquals(false)
         }
 
@@ -96,6 +96,17 @@ const Main = () => {
         if (!expression) return
         if (operands.one === '0') return
 
+        if (operands.one !== '' && operands.two === '' && operands.finally) {
+            if (+operands.one < 0) {
+                setExpression(Math.abs(+operands.one).toString() + operands.operator)
+                setOperands(prev => ({...prev, one: Math.abs(+operands.one)}))
+            } else {
+                setExpression((+operands.one * -1).toString() + operands.operator)
+                setOperands(prev => ({...prev, one: +operands.one * -1}))
+            }
+            return;
+        }
+
         if (operands.one !== '' && operands.two !== '' && operands.finally) {
             const newExp = expression.split('')
             const length1 = operands.one.toString().length
@@ -136,24 +147,36 @@ const Main = () => {
         newExp.splice(+length1 + 1, +length2)
 
         if (operands.operator === '+') {
+            if (operands.two === '') {
+                return;
+            }
             const percent = (+operands.one / 100) * +operands.two
             setOperands(prev => ({...prev, two: percent, resetTwoOperand: true}))
             setExpression(newExp.join('') + percent)
         }
 
         if (operands.operator === '-') {
+            if (operands.two === '') {
+                return;
+            }
             const percent = (+operands.one / 100) * +operands.two
             setOperands(prev => ({...prev, two: percent, resetTwoOperand: true}))
             setExpression(newExp.join('') + percent)
         }
 
         if (operands.operator === '*') {
+            if (operands.two === '') {
+                return;
+            }
             const percent = +operands.two / 100
             setOperands(prev => ({...prev, two: percent.toFixed(2), resetTwoOperand: true}))
             setExpression(newExp.join('') + percent.toFixed(2))
         }
 
         if (operands.operator === '/') {
+            if (operands.two === '') {
+                return;
+            }
             const percent = +operands.two / 100
             setOperands(prev => ({...prev, two: percent.toFixed(2), resetTwoOperand: true}))
             setExpression(newExp.join('') + percent.toFixed(2))
@@ -176,6 +199,9 @@ const Main = () => {
         }
 
         if (operands.one !== '' && operands.finally && operands.operator !== '') {
+            if (operands.two === '') {
+                return;
+            }
             setOperands(prev => ({...prev, two: (1 / +operands.two).toFixed(6), resetTwoOperand: true}))
             const newExp = expression.split('')
             const length1 = operands.one.toString().length
@@ -206,6 +232,9 @@ const Main = () => {
         }
 
         if (operands.one !== '' && operands.finally && operands.operator !== '') {
+            if (operands.two === '') {
+                return;
+            }
             setOperands(prev => ({...prev, two: Math.pow(+operands.two, 2), resetTwoOperand: true}))
             const newExp = expression.split('')
             const length1 = operands.one.toString().length
@@ -236,6 +265,9 @@ const Main = () => {
         }
 
         if (operands.one !== '' && operands.finally && operands.operator !== '') {
+            if (operands.two === '') {
+                return;
+            }
             setOperands(prev => ({...prev, two: Math.sqrt(+operands.two).toFixed(6), resetTwoOperand: true}))
             const newExp = expression.split('')
             const length1 = operands.one.toString().length
