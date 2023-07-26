@@ -10,10 +10,11 @@ type HeaderType = {
 const Header = ({expression, result, equals}: HeaderType) => {
     return (
         <div className={classes.Wrap}>
-            <div className={classes.Expression}>{expression} {equals ? '=' : null}</div>
-            <div className={cn(classes.Result,
-                {[classes.Small]: result.toString().length > 20},
-                {[classes.Small]: result.toString().length > 15})}>{result}</div>
+            {equals
+                ? <div className={cn(classes.Expression)}>{result}</div>
+                : <div className={classes.Expression}>{expression} </div>}
+
+
         </div>
     );
 };

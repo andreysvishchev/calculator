@@ -35,24 +35,47 @@ const Main = () => {
     const [additional, setAdditional] = useState<AdditionalType>(defaultAdditional)
 
     const handleKeyPress = (keyCode: number | null, key: string) => {
-        setEquals(false)
-        if (key === 'ce') clearAllHandler()
 
-        if (key === 'c') clearHandler()
+        if (key === 'ce' || key === 'Escape') {
+            clearAllHandler()
+            setEquals(false)
+        }
 
-        if (key === 'root') rootHandler()
+        if (key === 'c') {
+            clearHandler()
+            setEquals(false)
+        }
 
-        if (key === 'x2') sqrHandler()
+        if (key === 'root') {
+            rootHandler()
+            setEquals(false)
+        }
 
-        if (key === '1/x') fractionHandler()
+        if (key === 'x2') {
+            sqrHandler()
+            setEquals(false)
+        }
 
-        if (key === '%') percentHandler()
+        if (key === '1/x') {
+            fractionHandler()
+            setEquals(false)
+        }
 
-        if (key === '+/-') decrementHandler()
+        if (key === '%') {
+            percentHandler()
+            setEquals(false)
+        }
+
+        if (key === '+/-') {
+            decrementHandler()
+            setEquals(false)
+        }
 
         if (!keyCode) return
 
         if (!usedKeyCodes.includes(keyCode)) return
+
+        setEquals(false)
 
         if (numbers.includes(key)) {
             setAdditional(prevState => ({...prevState, finish: false}))
@@ -265,6 +288,7 @@ const Main = () => {
         }
 
         if (operands.resetTwoOperand) {
+            // console.log(1)
             const newExp = expression.split('')
             const length1 = operands.one.toString().length
             const length2 = operands.two.toString().length
@@ -275,30 +299,36 @@ const Main = () => {
         }
 
         if (operands.one !== '' && operands.two !== '' && operands.finally && intermediateResult !== '') {
+            // console.log(2)
             setOperands(prev => ({...prev, one: key, two: '', finally: false, operator: ''}))
             setExpression(key.toString())
             return
         }
         if (operands.one !== '' && operands.finally && operands.operator !== '') {
+            // console.log(3)
             if (operands.two.toString().length > 10) return
             setOperands(prev => ({...prev, two: prev.two + key.toString()}))
             setExpression(expression + key)
             return
         }
         if (operands.one !== '' && operands.addNumbersAfterExpression) {
-            setOperands(prev => ({...prev, one: key, addNumbersAfterExpression: false}))
+            // console.log(4)
+            setOperands(prev => ({...prev, one: key, addNumbersAfterExpression: false, expForResult: false}))
             setExpression(key.toString())
             return
         }
         if ((operands.one !== '', operands.two === '', !operands.finally, result !== '')) {
+            // console.log(5)
             setOperands(prev => ({...prev, finally: true}))
         }
         if (operands.one === '0') {
+            // console.log(6)
             setOperands(prev => ({...prev, one: key}))
             setExpression(key.toString())
             return
         }
         if (operands.one.toString().length > 10) return
+        // console.log(7)
         setOperands(prev => ({...prev, one: prev.one + key.toString()}))
         setExpression(expression + key)
     }
@@ -565,6 +595,7 @@ const Main = () => {
         }
     }
 
+    // console.log(operands)
 
     return <div
         tabIndex={0}
